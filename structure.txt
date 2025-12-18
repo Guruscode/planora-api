@@ -1,0 +1,44 @@
+src/
+├── app.module.ts
+├── main.ts
+├── common/
+│
+│   ├── decorators/
+│   │   ├── current-user.decorator.ts
+│   │   └── roles.decorator.ts
+│   ├── guards/
+│   │   ├── jwt-auth.guard.ts
+│   │   ├── roles.guard.ts
+│   │   └── admin.guard.ts
+│   ├── filters/
+│   └── enums/
+│       ├── user-role.enum.ts
+│       └── order-status.enum.ts
+├── config/
+│   ├── configuration.ts
+│   ├── typeorm.config.ts
+│   └── r2.config.ts
+├── modules/
+│   ├── auth/                 → register, login, OTP, JWT
+│   ├── users/                → profile, location
+│   ├── organizations/        → organizer profile
+│   ├── team/                 → invite & roles
+│   ├── events/               → CRUD + public feed
+│   ├── tickets/              → ticket types
+│   ├── orders/               → create → pay → tickets
+│   ├── payments/
+│   │   ├── payments.module.ts
+│   │   ├── stripe/
+│   │   │   ├── stripe.service.ts
+│   │   │   ├── stripe.connect.service.ts
+│   │   │   └── stripe.webhook.controller.ts
+│   │   └── paystack/
+│   │       ├── paystack.service.ts
+│   │       └── paystack.webhook.controller.ts
+│   ├── payouts/              → connect Stripe/Paystack accounts
+│   ├── uploads/              → Cloudflare R2
+│   │   ├── uploads.controller.ts
+│   │   ├── uploads.service.ts
+│   │   └── cloudflare-r2.service.ts
+│   └── admin/                → dashboard for you
+└── entities/                 → all TypeORM entities in one place or per module

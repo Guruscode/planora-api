@@ -1,0 +1,74 @@
+# AUTH
+POST    /auth/register
+POST    /auth/login
+POST    /auth/verify-otp
+POST    /auth/resend-otp
+POST    /auth/forgot-password
+POST    /auth/reset-password
+POST    /auth/refresh
+GET     /auth/me
+
+# PROFILE
+GET     /profile
+PUT     /profile
+PATCH   /profile/location
+POST    /profile/photo           → Uploads profile photo (R2)
+
+# ORGANIZATIONS (Organizers only)
+POST    /organizations
+GET     /organizations/me
+PUT     /organizations/me
+GET     /organizations/slug/:slug
+GET     /organizations/:id
+
+# TEAM MANAGEMENT (Owner only)
+POST    /organizations/:orgId/team/invite
+GET     /organizations/:orgId/team
+PATCH   /organizations/:orgId/team/:userId/role
+DELETE  /organizations/:orgId/team/:userId
+
+# PAYOUT SETUP
+POST    /payouts/connect/stripe        → Returns Stripe onboarding URL
+POST    /payouts/connect/paystack      → Returns Paystack auth URL
+GET     /payouts/status                 → Check connection status
+
+# EVENTS
+POST    /events
+GET     /events                         → Public feed
+GET     /events/upcoming
+GET     /events/nearby?lat=&lng=
+GET     /events/:id
+GET     /events/slug/:slug
+PUT     /events/:id
+DELETE  /events/:id
+GET     /events/me                      → My events (organizer)
+
+# TICKET TYPES
+POST    /events/:eventId/tickets
+GET     /events/:eventId/tickets
+PUT     /events/:eventId/tickets/:ticketId
+DELETE  /events/:eventId/tickets/:ticketId
+
+# ORDERS & CHECKOUT
+POST    /orders                         → Create draft order
+POST    /orders/:orderId/pay            → Triggers Stripe or Paystack (auto-detect country)
+GET     /orders/:reference              → Verify payment + issue tickets
+GET     /orders/me                      → My tickets
+
+# TICKET CHECK-IN (Gate staff)
+GET     /tickets/scan/:code             → Validate QR
+POST    /tickets/:ticketId/checkin      → Mark as used
+
+# UPLOADS (R2)
+POST    /uploads/image/:folder          → events | organizations | profiles
+
+# WEBHOOKS (Public – no auth)
+POST    /webhooks/stripe
+POST    /webhooks/paystack
+
+# ADMIN (Super admin only)
+GET     /admin/users
+GET     /admin/events
+GET     /admin/orders
+PATCH   /admin/events/:id/approve
+DELETE  /admin/events/:id                  → Ban user, delete event, etc.
