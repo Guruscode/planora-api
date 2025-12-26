@@ -8,7 +8,8 @@ import {
   OneToMany,
 } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
-import { TeamMember } from './team-member.entity'
+import { TeamMember } from './team-member.entity';
+import { Event } from '../../events/entities/event.entity';
 
 import { OrgRole } from '../../../common/enums/org-role.enum';
 
@@ -43,4 +44,7 @@ export class Organization {
 
   @OneToMany(() => TeamMember, (member) => member.organization, { cascade: true })
   teamMembers: TeamMember[];
+
+  @OneToMany(() => Event, (event) => event.organization)
+  events: Event[];
 }
