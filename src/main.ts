@@ -6,10 +6,21 @@ import { EnhancedValidationPipe } from './common/pipes/validation.pipe';
 import { AllExceptionsFilter } from './common/filters/http-exception.filter';
 import { ResponseInterceptor } from './common/interceptors/response.interceptor';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as bodyParser from 'body-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
+
+  // Raw body for webhooks
+  app.use(
+    '/orders/webhook',
+    bodyParser.raw({ type: '*/*' }),
+    (req, _res, next) => {
+      (req as any).rawBody = req.body;
+      next();
+    },
+  );
 
   app.setGlobalPrefix('api/v1');
 

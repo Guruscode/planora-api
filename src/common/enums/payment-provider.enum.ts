@@ -1,0 +1,5 @@
+export enum PaymentProvider {
+  PAYSTACK = 'paystack',
+  STRIPE = 'stripe',
+  FREE = 'free',
+}
