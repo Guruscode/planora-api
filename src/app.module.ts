@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import configuration from './config/configuration';
-import { getTypeOrmConfig } from './config/typeorm.config';
+import { getDatabaseConfig } from './config/typeorm.config';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 import { MailModule } from './modules/mail/mail.module'; // ← imported
@@ -24,7 +24,7 @@ import { NotificationsModule } from './modules/notifications/notifications.modul
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: getTypeOrmConfig,
+      useFactory: getDatabaseConfig,
       inject: [ConfigService],
     }),
     AuthModule,
